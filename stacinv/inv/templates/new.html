@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% load static %}
+
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  {% if done == True %}
+    <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      Please confirm your email.
+    </div>
+  {% endif %}
+  {% if error == "Invalid information/ Email already in use." %}
+    <div class="alerte">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      {{ error }}
+    </div>
+  {% endif %}
+  {% if error == "Please use an IITmandi email." %}
+    <div class="alerte">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      {{ error }}
+    </div>
+  {% endif %}
+  {% if error1 == "Invalid email or password/ Account not verified. " %}
+    <div class="alerte">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      {{ error1 }}
+    </div>
+  {% endif %}
+  <div class="materialContainer">
+    <div class="box">
+
+      <div class="title">LOGIN</div>
+
+      <form method="post">
+        {% csrf_token %}
+
+        {% for field in form1 %}
+          <div class="input">
+             <label for="name">{{ field.label_tag }}</label>
+             {{ field }}
+             <span class="spin"></span>
+          </div>
+        {% endfor %}
+
+        <div class="button login">
+           <button name="log"><span>Let's GO</span> <i class="fa fa-check"></i></button>
+        </div>
+      </form>
+
+
+    </div>
+
+    <div class="overbox">
+      <div class="material-button alt-2"><span class="shape"></span></div>
+
+      <div class="title">REGISTER</div>
+
+      <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+          <div class="input">
+             <label for="regname">{{ field.label_tag }}</label>
+             {{ field }}
+             <span class="spin"></span>
+          </div>
+        {% endfor %}
+
+        <div class="button">
+           <button name="sign"><span>NEXT</span></button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="{% static 'index.js' %}"></script>
+
+{% endblock %}

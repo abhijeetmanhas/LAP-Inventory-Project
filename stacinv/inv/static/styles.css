@@ -1,0 +1,70 @@
+.logout-button {
+  display: inline-block;
+  position: absolute;
+  left: 85.7%;
+  top: 2%
+}
+
+.name-chip {
+  display: inline-block;
+  position: absolute;
+  left: 80%;
+  text-align:right;
+  align-items: flex-end;
+}
+
+.aa {
+  text-align: right;
+}
+
+.mdl-card {
+  width: 90%;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: #d8d8d8;
+}
+
+.page-content {
+  margin: 2em;
+}
+
+table > tbody > tr:hover {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+table {
+  margin: 2em 0;
+  background-color: white;
+}
+
+p > form > label {
+  font-size: 200%;
+}
+
+h4 {
+  color: black;
+  font-weight: bold;
+}
+
+.modal {
+  margin-top: 4em !important;
+}
+
+td #id_text {
+  width: 75%;
+}
+
+@media (max-width:992px) {
+  .booked {
+    min-height: 340px;
+  }
+}
+
+@media (max-width:992px) {
+  td #id_text {
+    width: 167px;
+  }
+}

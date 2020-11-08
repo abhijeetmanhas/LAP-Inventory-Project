@@ -1,0 +1,87 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row aa">
+      <!-- Title -->
+      <!-- <button type="button" class="mdl-chip name-chip">
+        <span class="mdl-chip__text aa">{{ name }}</span>
+      </button> -->
+      <a href="{% url 'logout' %}">
+        <span class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent logout-button">{{ name }}<i class="material-icons">forward</i></span>
+      </a>
+      <span class="mdl-layout-title">CS308 Inventory Management</span>
+    </div>
+
+              <!-- {% for form in allreturns %}
+                {% if form.ret.value == False %}
+                  {% for rent in rents %}
+                    {% if rent.pk == form.pk.value %}
+                      {{ rent.object }}
+                      {{ rent.quantity }}
+                      {{ rent.returned }}
+                      {{ rent.issue_date }}
+                      {{ rent.due_date }}
+                      {{ rent.comments }}
+                    {% endif %}
+                  {% endfor %}
+                  <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit">Return</button>
+                  </form>
+                  {% for formm in allcomments %}
+                    {% if formm.pk.value == form.pk.value %}
+                      <form method="post">
+                        {% csrf_token %}
+                        {{ formm }}<br>
+                        <button type="submit">Submit</button>
+                      </form>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+
+              {% for form in allreturns %}
+                {% if form.ret.value == True %}
+                  {% for rent in rents %}
+                    {% if rent.pk == form.pk.value %}
+                      {{ rent.object }}
+                      {{ rent.quantity }}
+                      {{ rent.returned }}
+                      {{ rent.issue_date }}
+                      {{ rent.due_date }}
+                      {{ rent.comments }}
+                    {% endif %}
+                  {% endfor %}
+                  {% for formm in allcomments %}
+                    {% if formm.pk.value == form.pk.value %}
+                      <form method="post">
+                        {% csrf_token %}
+                        {{ formm }}<br>
+                        <button type="submit">Submit</button>
+                      </form>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endfor %} -->
+
+      </div>
+    </section>
+  
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script src="{% static 'index1.js' %}"></script>
+{% endblock %}
