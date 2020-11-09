@@ -34,33 +34,12 @@ class Migration(migrations.Migration):
                 ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
             ],
             options={
-                'verbose_name': 'user',
                 'verbose_name_plural': 'users',
                 'abstract': False,
+                'verbose_name': 'user',
             },
             managers=[
                 ('objects', inv.models.UserManager()),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Inventory',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('quantity', models.PositiveIntegerField()),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Rental',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField()),
-                ('returned', models.BooleanField(default=False)),
-                ('due_date', models.DateField()),
-                ('issue_date', models.DateField(default=datetime.date.today)),
-                ('comments', models.TextField(blank=True, max_length=500, null=True)),
-                ('object', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='inv.Inventory')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

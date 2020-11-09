@@ -18,63 +18,165 @@
       </a>
       <span class="mdl-layout-title">CS308 Inventory Management</span>
     </div>
+    <!-- Tabs -->
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+      <a href="#fixed-tab-1" class="mdl-layout__tab is-active">booked</a>
+      <a href="#fixed-tab-2" class="mdl-layout__tab">available</a>
+    </div>
+  </header>
+  <main class="mdl-layout__content">
+    <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+      <div class="page-content">
+        <h3>Issued items</h3>
+        <table class="highlight centered responsive-table booked">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+            <th>Comments</th>
+            <th>Add Comments</th>
+            <th>Return</th>
+          </tr>
+        </thead>
 
-              <!-- {% for form in allreturns %}
-                {% if form.ret.value == False %}
-                  {% for rent in rents %}
-                    {% if rent.pk == form.pk.value %}
-                      {{ rent.object }}
-                      {{ rent.quantity }}
-                      {{ rent.returned }}
-                      {{ rent.issue_date }}
-                      {{ rent.due_date }}
-                      {{ rent.comments }}
-                    {% endif %}
-                  {% endfor %}
-                  <form method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <button type="submit">Return</button>
-                  </form>
-                  {% for formm in allcomments %}
+        <tbody>
+          {% for form in allreturns %}
+            {% if form.ret.value == False %}
+            <tr>
+              {% for rent in rents %}
+                {% if rent.pk == form.pk.value %}
+                  <td>{{ rent.object }}</td>
+                  <td>{{ rent.quantity }}</td>
+                  <td>{{ rent.issue_date }}</td>
+                  <td>{{ rent.due_date }}</td>
+                  <td>{{ rent.comments }}</td>
+                  <td>
+                    {% for formm in allcomments %}
                     {% if formm.pk.value == form.pk.value %}
                       <form method="post">
                         {% csrf_token %}
-                        {{ formm }}<br>
-                        <button type="submit">Submit</button>
+                        {% for field in formm %}
+                          {{ field }}
+                        {% endfor %}
+                        <button type="submit" name="comment">Submit</button>
                       </form>
                     {% endif %}
-                  {% endfor %}
+                    {% endfor %}
+                  </td>
+                  <td>
+                    <form method="post">
+                      {% csrf_token %}
+                      {{ form }}
+                      <button type="submit" name="return">Return</button>
+                    </form>
+                  </td>
                 {% endif %}
               {% endfor %}
+            </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
 
-              {% for form in allreturns %}
-                {% if form.ret.value == True %}
-                  {% for rent in rents %}
-                    {% if rent.pk == form.pk.value %}
-                      {{ rent.object }}
-                      {{ rent.quantity }}
-                      {{ rent.returned }}
-                      {{ rent.issue_date }}
-                      {{ rent.due_date }}
-                      {{ rent.comments }}
-                    {% endif %}
-                  {% endfor %}
+      </table>
+
+      <h3>Returned Items</h3>
+      <table class="highlight centered responsive-table booked">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Issue Date</th>
+          <th>Comments</th>
+          <th>Add Comments</th>
+          <th>Returned</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for form in allreturns %}
+          {% if form.ret.value == True %}
+          <tr>
+            {% for rent in rents %}
+              {% if rent.pk == form.pk.value %}
+                <td>{{ rent.object }}</td>
+                <td>{{ rent.quantity }}</td>
+                <td>{{ rent.issue_date }}</td>
+                <td>{{ rent.comments }}</td>
+                <td>
                   {% for formm in allcomments %}
-                    {% if formm.pk.value == form.pk.value %}
-                      <form method="post">
-                        {% csrf_token %}
-                        {{ formm }}<br>
-                        <button type="submit">Submit</button>
-                      </form>
-                    {% endif %}
+                  {% if formm.pk.value == form.pk.value %}
+                    <form method="post">
+                      {% csrf_token %}
+                      {% for field in formm %}
+                        {{ field }}
+                      {% endfor %}
+                      <button type="submit" name="comment">Submit</button>
+                    </form>
+                  {% endif %}
                   {% endfor %}
-                {% endif %}
-              {% endfor %} -->
+                </td>
+                <td>
+                  <i class="material-icons">
+                    done
+                  </i>
+                </td>
+              {% endif %}
+            {% endfor %}
+          </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+
+    </table>
 
       </div>
     </section>
-  
+    <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+      <div class="page-content">
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card white">
+              <div class="card-content">
+                <span class="card-title">Issue</span>
+                  <form method="post">
+                    {% csrf_token %}
+                    {% for field in newrent %}
+                      {% if forloop.counter == 1 %}
+                        <div style="display: none;">
+                          {{ field }}
+                        </div>
+                      {% else %}
+                        <label>{{ field.label_tag }}</label>
+                        <div>
+                          {{ field }}
+                        </div><br>
+                      {% endif %}
+                    {% endfor %}
+                    <button type="submit" name="new">Submit</button>
+                    {{ error }}
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table class="highlight centered responsive-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity Available</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for inv in invs %}
+              <tr>
+                <td>{{ inv.name }}</td>
+                <td>{{ inv.quantity }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
         </table>
       </div>
     </section>
