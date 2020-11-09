@@ -3,31 +3,17 @@
 LAP CS308 Project by Team 16.
 Uses Django v2.0
 
-## Deployment Instructions
+# CS-308-Lab-3
 
-1. Create a new virtual environment and activate it.
+**Team** :
 
-```console
-pyvenv inv
-source inv/bin/activate
-```
+- Member A - *Mrinal Tyagi* (B18074)
 
-2. Install dependencies.
+- Member B - *Abhijeet Manhas* (B18043)
 
-```console
-pip install -r requirements.txt
-```
+- Member C - *Mukul Dhiman* (B18076)
 
-3. Create the database.
+- Member D - *Dinesh Bhagat* (B18053)
 
-```console
-python manage.py migrate
-```
+- Member E - *Harshit Mittal* (B18056)
 
-6. Launch the server:
-
-```console
-python manage.py runserver
-```
-
-7. Visit the url `http://127.0.0.1:8000/` on your browser.
