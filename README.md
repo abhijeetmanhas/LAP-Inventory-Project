@@ -15,3 +15,6 @@ Uses Django v2.0
 
 - Member E - *Harshit Mittal* (B18056)
 
+
+
+**See Project WIKI [here](https://github.com/abhijeetmanhas/LAP-Inventory-Project/wiki)**
