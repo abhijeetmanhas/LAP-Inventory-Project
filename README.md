@@ -3,8 +3,6 @@
 LAP CS308 Project by Team 16.
 Uses Django v2.0
 
-# CS-308-Lab-3
-
 **Team** :
 
 - Member A - *Mrinal Tyagi* (B18074)
