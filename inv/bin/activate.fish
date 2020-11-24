@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/abhimanhas/repos/apps/inv"
+set -gx VIRTUAL_ENV "/home/mukul/Desktop/sem5/LAP/final project/LAP-Inventory-Project/inv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

@@ -1,5 +1,6 @@
-#!/home/abhimanhas/repos/apps/inv/bin/python3.6
-
+#!/bin/sh
+'''exec' "/home/mukul/Desktop/sem5/LAP/final project/LAP-Inventory-Project/inv/bin/python3.6" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys
