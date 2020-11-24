@@ -45,12 +45,10 @@ class RentForm(forms.ModelForm):
     ), widget=forms.Select(attrs={'class': 'mdl-textfield__input'}))
     quantity = forms.IntegerField(widget=forms.NumberInput(
         attrs={'class': 'mdl-textfield__input'}))
-    due_date = forms.DateField(widget=forms.SelectDateWidget(
-        attrs={'class': 'mdl-textfield__input'}))
 
     class Meta:
         model = Rental
-        fields = ('user', 'object', 'quantity', 'due_date')
+        fields = ('user', 'object', 'quantity')
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('label_suffix', '')
