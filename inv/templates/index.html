@@ -33,6 +33,7 @@
           <tr>
             <th>Item</th>
             <th>Quantity</th>
+            <th>price</th>
             <th>Issue Date</th>
             <th>Due Date</th>
             <th>Comments</th>
@@ -49,6 +50,7 @@
                 {% if rent.pk == form.pk.value %}
                   <td>{{ rent.object }}</td>
                   <td>{{ rent.quantity }}</td>
+                  <td>{{ rent.price }}</td>
                   <td>{{ rent.issue_date }}</td>
                   <td>{{ rent.due_date }}</td>
                   <td>{{ rent.comments }}</td>
@@ -87,6 +89,7 @@
         <tr>
           <th>Item</th>
           <th>Quantity</th>
+          <th>Price</th>
           <th>Issue Date</th>
           <th>Comments</th>
           <th>Add Comments</th>
@@ -102,6 +105,7 @@
               {% if rent.pk == form.pk.value %}
                 <td>{{ rent.object }}</td>
                 <td>{{ rent.quantity }}</td>
+                <td>{{ rent.price }}</td>
                 <td>{{ rent.issue_date }}</td>
                 <td>{{ rent.comments }}</td>
                 <td>
@@ -166,6 +170,7 @@
             <tr>
               <th>Item</th>
               <th>Quantity Available</th>
+              <th>Price</th>
             </tr>
           </thead>
 
@@ -174,6 +179,7 @@
               <tr>
                 <td>{{ inv.name }}</td>
                 <td>{{ inv.quantity }}</td>
+                <td>{{ inv.price }}</td>
               </tr>
             {% endfor %}
           </tbody>
