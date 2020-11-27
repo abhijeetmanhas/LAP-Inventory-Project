@@ -64,7 +64,7 @@ class Rental(models.Model):
                              on_delete=models.CASCADE)
     object = models.ForeignKey(Inventory, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    ##price = models.IntegerField()
+    price = models.FloatField(null=True, default=0)
     returned = models.BooleanField(default=False)
     issue_date = models.DateField(default=datetime.date.today)
     comments = models.TextField(max_length=500, null=True, blank=True)

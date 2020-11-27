@@ -33,10 +33,8 @@
           <tr>
             <th>Item</th>
             <th>Quantity</th>
-            <th> quantity in </th>
-            <th>price</th>
+            <th>Cost in ₹</th>
             <th>Issue Date</th>
-            <th>Due Date</th>
             <th>Comments</th>
             <th>Add Comments</th>
             <th>Return</th>
@@ -51,10 +49,8 @@
                 {% if rent.pk == form.pk.value %}
                   <td>{{ rent.object }}</td>
                   <td>{{ rent.quantity }}</td>
-                  <td>{{ rent.qtyUnit}} </td>
                   <td>{{ rent.price }}</td>
                   <td>{{ rent.issue_date }}</td>
-                  <td>{{ rent.due_date }}</td>
                   <td>{{ rent.comments }}</td>
                   <td>
                     {% for formm in allcomments %}
@@ -85,7 +81,7 @@
 
       </table>
 
-
+<!--
       <h3>Returned Items</h3>
       <table class="highlight centered responsive-table booked">
       <thead>
@@ -140,7 +136,7 @@
       </tbody>
 
     </table>
-
+  -->
       </div>
     </section>
     <section class="mdl-layout__tab-panel" id="fixed-tab-2">
@@ -153,16 +149,10 @@
                   <form method="post">
                     {% csrf_token %}
                     {% for field in newrent %}
-                      {% if forloop.counter == 1 %}
-                        <div style="display: none;">
-                          {{ field }}
-                        </div>
-                      {% else %}
                         <label>{{ field.label_tag }}</label>
                         <div>
                           {{ field }}
                         </div><br>
-                      {% endif %}
                     {% endfor %}
                     <button type="submit" name="new">Submit</button>
                     {{ error }}
@@ -176,8 +166,8 @@
             <tr>
               <th>Item</th>
               <th>Quantity Available</th>
-              <th> Quantity in</th>
-              <th>Price</th>
+              <th>Unit</th>
+              <th>Unit Price (in ₹)</th>
             </tr>
           </thead>
 
@@ -186,8 +176,8 @@
               <tr>
                 <td>{{ inv.name }}</td>
                 <td>{{ inv.quantity }}</td>
-                <td>{{ inv.price }}</td>
-                <td>{{inv.qtyUnit}}</td>
+                <td>{{ inv.qtyUnit }}</td>
+                <td>{{inv.price}}</td>
               </tr>
             {% endfor %}
           </tbody>

@@ -45,6 +45,7 @@ class RentForm(forms.ModelForm):
     ), widget=forms.Select(attrs={'class': 'mdl-textfield__input'}))
     quantity = forms.IntegerField(widget=forms.NumberInput(
         attrs={'class': 'mdl-textfield__input'}))
+    price = forms.FloatField(widget = forms.HiddenInput(), required = False)
 
     class Meta:
         model = Rental

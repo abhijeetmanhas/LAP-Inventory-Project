@@ -11,15 +11,6 @@ from .forms import SignUpForm, Comment, Return, RentForm, CommentForm, ReturnFor
 from .models import Inventory, Rental, User
 
 
-def IITmail(request):
-    s = request.POST['email']
-    str = s[-14:]
-    if str.lower() == "iitmandi.ac.in":
-        return True
-    else:
-        return False
-
-
 def checkAvailable(request):
     myobj = Inventory.objects.get(pk=request.POST['object'])
     if myobj.quantity >= (int)(request.POST['quantity']) and (int)(request.POST['quantity']) > 0:
@@ -66,15 +57,18 @@ def inventory(request):
                     f = ReturnForm({'id': pk, 'returned': True}, instance=m)
                     if f.is_valid():
                         f.save()
-            if 'new' in request.POST and newrent.is_valid():
-                newrent.cleaned_data['user'] = user
-                if (checkAvailable(request)):
-                    newrent.save()
-                else:
-                    error += "Quantity not available."
+            if not('new' in request.POST and newrent.is_valid() and (checkAvailable(request))):
+                error += "Quantity not available."
         invs = Inventory.objects.all()
         rents = Rental.objects.filter(user=user)
-        newrent = RentForm(initial={'user': user.id})
+        if request.method == "POST" and "new" in request.POST:
+    
+            mprice = float(request.POST['quantity'])*float(Inventory.objects.get(pk=request.POST['object']).price)
+            newrent = RentForm(request.POST, initial={'user': user.id})
+            if newrent.is_valid():
+                inst = newrent.save(commit=False)
+                inst.price = mprice
+                inst.save()
         allcomments = []
         allreturns = []
         for rent in rents:
@@ -99,9 +93,9 @@ def new(request):
         form1 = LoginForm(request.POST)
         if 'sign' in request.POST and not form.is_valid():
             error += "Invalid information/ Email already in use."
-        elif 'sign' in request.POST and not IITmail(request):
+        elif 'sign' in request.POST:
             error += "Please use an IITmandi email."
-        if form.is_valid() and IITmail(request):
+        if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
             user.save()
