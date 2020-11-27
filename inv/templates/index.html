@@ -27,7 +27,7 @@
   <main class="mdl-layout__content">
     <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
       <div class="page-content">
-        <h3>Issued items</h3>
+        <h3>Pending items</h3>
         <table class="highlight centered responsive-table booked">
         <thead>
           <tr>
@@ -37,7 +37,7 @@
             <th>Issue Date</th>
             <th>Comments</th>
             <th>Add Comments</th>
-            <th>Return</th>
+            <!--<th>Return</th>-->
           </tr>
         </thead>
 
@@ -65,6 +65,7 @@
                     {% endif %}
                     {% endfor %}
                   </td>
+                  <!--
                   <td>
                     <form method="post">
                       {% csrf_token %}
@@ -72,6 +73,7 @@
                       <button type="submit" name="return">Return</button>
                     </form>
                   </td>
+                -->
                 {% endif %}
               {% endfor %}
             </tr>
@@ -81,62 +83,38 @@
 
       </table>
 
-<!--
-      <h3>Returned Items</h3>
-      <table class="highlight centered responsive-table booked">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Quantity</th>
-          <th>Quantity in</th>
-          <th>Price</th>
-          <th>Issue Date</th>
-          <th>Comments</th>
-          <th>Add Comments</th>
-          <th>Returned</th>
-        </tr>
-      </thead>
 
-
-      <tbody>
-        {% for form in allreturns %}
-          {% if form.ret.value == True %}
+        <h3>Approved items</h3>
+        <table class="highlight centered responsive-table booked">
+        <thead>
           <tr>
-            {% for rent in rents %}
-              {% if rent.pk == form.pk.value %}
-                <td>{{ rent.object }}</td>
-                <td>{{ rent.quantity }}</td>
-                <td>{{rent.qtyUnit}}</td>
-                <td>{{ rent.price }}</td>
-                <td>{{ rent.issue_date }}</td>
-                <td>{{ rent.comments }}</td>
-                <td>
-                  {% for formm in allcomments %}
-                  {% if formm.pk.value == form.pk.value %}
-                    <form method="post">
-                      {% csrf_token %}
-                      {% for field in formm %}
-                        {{ field }}
-                      {% endfor %}
-                      <button type="submit" name="comment">Submit</button>
-                    </form>
-                  {% endif %}
-                  {% endfor %}
-                </td>
-                <td>
-                  <i class="material-icons">
-                    done
-                  </i>
-                </td>
-              {% endif %}
-            {% endfor %}
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Cost in ₹</th>
+            <th>Issue Date</th>
           </tr>
-          {% endif %}
-        {% endfor %}
-      </tbody>
+        </thead>
 
-    </table>
-  -->
+        <tbody>
+          {% for form in allreturns %}
+            {% if form.ret.value == True %}
+            <tr>
+              {% for rent in rents %}
+                {% if rent.pk == form.pk.value %}
+                  <td>{{ rent.object }}</td>
+                  <td>{{ rent.quantity }}</td>
+                  <td>{{ rent.price }}</td>
+                  <td>{{ rent.issue_date }}</td>
+                {% endif %}
+              {% endfor %}
+            </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+
       </div>
     </section>
     <section class="mdl-layout__tab-panel" id="fixed-tab-2">

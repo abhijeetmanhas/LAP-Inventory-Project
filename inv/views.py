@@ -14,8 +14,8 @@ from .models import Inventory, Rental, User
 def checkAvailable(request):
     myobj = Inventory.objects.get(pk=request.POST['object'])
     if myobj.quantity >= (int)(request.POST['quantity']) and (int)(request.POST['quantity']) > 0:
-        myobj.quantity = myobj.quantity - (int)(request.POST['quantity'])
-        myobj.save()
+            # myobj.quantity = myobj.quantity - (int)(request.POST['quantity'])
+            # myobj.save()
         return True
     else:
         return False
@@ -54,15 +54,15 @@ def inventory(request):
                 if bForm.is_valid() and 'return' in request.POST:
                     pk = bForm['pk'].value()
                     m = Rental.objects.get(pk=pk)
-                    f = ReturnForm({'id': pk, 'returned': True}, instance=m)
+                    f = ReturnForm({'id': pk, 'approved': True,'requested':True}, instance=m)
                     if f.is_valid():
                         f.save()
-            if not('new' in request.POST and newrent.is_valid() and (checkAvailable(request))):
-                error += "Quantity not available."
+            if 'new' in request.POST and newrent.is_valid():
+                if not (checkAvailable(request)):
+                    error += "Quantity not available."
         invs = Inventory.objects.all()
         rents = Rental.objects.filter(user=user)
         if request.method == "POST" and "new" in request.POST:
-    
             mprice = float(request.POST['quantity'])*float(Inventory.objects.get(pk=request.POST['object']).price)
             newrent = RentForm(request.POST, initial={'user': user.id})
             if newrent.is_valid():
@@ -73,10 +73,19 @@ def inventory(request):
         allreturns = []
         for rent in rents:
             aForm = [Comment(initial={'pk': rent.pk})]
-            bForm = [Return(initial={'pk': rent.pk, 'ret': rent.returned})]
+            m = Rental.objects.get(pk=rent.pk)
+            if rent.requested and rent.approved:
+                myobj = rent.object
+                if myobj.quantity >= (int)(rent.quantity) and (int)(rent.quantity) > 0:
+                    print("loop")
+                    myobj.quantity = myobj.quantity - (int)(rent.quantity)
+                    myobj.save()
+                    m.requested = False
+                    m.save()
+
+            bForm = [Return(initial={'pk': m.pk, 'ret': m.approved,'req':m.requested})]
             allreturns += bForm
             allcomments += aForm
-
         return render(request, 'index.html', {'name': name, 'invs': invs, 'rents': rents, 'newrent': newrent, 'error': error, 'allcomments': allcomments, 'allreturns': allreturns, })
     else:
         return HttpResponseRedirect('/new/')
@@ -93,8 +102,6 @@ def new(request):
         form1 = LoginForm(request.POST)
         if 'sign' in request.POST and not form.is_valid():
             error += "Invalid information/ Email already in use."
-        elif 'sign' in request.POST:
-            error += "Please use an IITmandi email."
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False

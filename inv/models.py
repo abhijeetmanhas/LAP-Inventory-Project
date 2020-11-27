@@ -65,9 +65,10 @@ class Rental(models.Model):
     object = models.ForeignKey(Inventory, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     price = models.FloatField(null=True, default=0)
-    returned = models.BooleanField(default=False)
+    approved = models.BooleanField(default=False)
+    requested = models.BooleanField(default=True)
     issue_date = models.DateField(default=datetime.date.today)
     comments = models.TextField(max_length=500, null=True, blank=True)
 
     def __str__(self):
-        return self.user.first_name + " - " + self.object.name
+        return self.user.email + " - " + self.object.name + "-" + str(self.quantity)

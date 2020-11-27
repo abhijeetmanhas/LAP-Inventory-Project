@@ -22,6 +22,7 @@ class Comment(forms.Form):
 class Return(forms.Form):
     pk = forms.IntegerField(widget=forms.HiddenInput())
     ret = forms.BooleanField(widget=forms.HiddenInput(), required=False)
+    req = forms.BooleanField(widget=forms.HiddenInput(), required=False)
 
 
 class CommentForm(forms.ModelForm):
@@ -36,7 +37,7 @@ class ReturnForm(forms.ModelForm):
 
     class Meta:
         model = Rental
-        fields = ('returned', )
+        fields = ('approved', 'requested')
 
 
 class RentForm(forms.ModelForm):
@@ -46,6 +47,7 @@ class RentForm(forms.ModelForm):
     quantity = forms.IntegerField(widget=forms.NumberInput(
         attrs={'class': 'mdl-textfield__input'}))
     price = forms.FloatField(widget = forms.HiddenInput(), required = False)
+    requested = forms.BooleanField(initial=True)
 
     class Meta:
         model = Rental
