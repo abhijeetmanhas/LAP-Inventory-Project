@@ -9,7 +9,14 @@ from django.core.mail import EmailMessage
 
 from .forms import SignUpForm, Comment, Return, RentForm, CommentForm, ReturnForm
 from .models import Inventory, Rental, User
+import email_to
+server = email_to.EmailServer('smtp.gmail.com', 587, 'lteam0554@gmail.com', 'adhmt@lap16')
 
+
+def sendConfMail(recp,item,qty,qtyUnit):
+    server.quick_email(recp, 'Confirmation',
+                    ["# Order Confirmed","Your order for {0} {1} {2} has been approved".format(str(qty),qtyUnit,item)],
+                    style='h1 {color: blue}')
 
 def checkAvailable(request):
     myobj = Inventory.objects.get(pk=request.POST['object'])
@@ -92,6 +99,7 @@ def inventory(request):
 
 
 def new(request):
+    sendConfMail("144harshit@gmail.com","abcd",5,"gms")
     error = ""
     error1 = ""
     done = False
