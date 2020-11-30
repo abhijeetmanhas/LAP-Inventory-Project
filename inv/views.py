@@ -108,9 +108,15 @@ def new(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         form1 = LoginForm(request.POST)
+        print("valid registration",form.is_valid())
+        print("registering", 'sign' in request.POST)
+        print("signin", "log" in request.POST)
         if 'sign' in request.POST and not form.is_valid():
             error += "Invalid information/ Email already in use."
         if form.is_valid():
+            user = form.save()
+            user.save()
+            """
             user = form.save(commit=False)
             user.is_active = False
             user.save()
@@ -125,6 +131,7 @@ def new(request):
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(mail_subject, message, to=[to_email])
             email.send()
+            """
             done = True
         elif 'log' in request.POST:
             username = request.POST['username']
