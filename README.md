@@ -17,4 +17,4 @@ Uses Django v2.0
 
 
 
-**See Project WIKI [here](https://github.com/abhijeetmanhas/LAP-Inventory-Project/wiki/Documentation)**
+**See Project WIKI [here](https://github.com/abhijeetmanhas/LAP-Inventory-Project/wiki)**
